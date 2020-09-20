@@ -11,11 +11,11 @@ router.get('/', (req,res) => res.json ({ message : 'Funcionando!'}));
 app.use('/', router);
 
 const connection = mysql.createConnection({
-    host : 'dbproducao.enviemensageria.com.br',
+    host : 'INSERT',
     port : '3306',
-    user : 'rannier',
-    password : 'IS@3syhdUzfOSvEE1CJ',
-    database : 'thweb_mob'
+    user : 'INSERT',
+    password : 'INSERT',
+    database : 'INSERT'
 });
 
 connection.connect(function(err){
@@ -27,11 +27,11 @@ connection.connect(function(err){
 
 function execSQLQuery (sqlQry, res){
     const connection = mysql.createConnection({
-    host : 'dbproducao.enviemensageria.com.br',
+    host : 'INSERT',
     port : '3306',
-    user : 'rannier',
-    password : 'IS@3syhdUzfOSvEE1CJ',
-    database : 'thweb_mob'
+    user : 'INSERT',
+    password : 'INSERT',
+    database : 'INSERT'
     });
 
 connection.query(sqlQry, function( error, results, fields){
