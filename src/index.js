@@ -45,26 +45,30 @@ connection.query(sqlQry, function( error, results, fields){
 });
 }
 
-router.get('/countUsers/:id?', (req,res) =>{
-    let filter = '';
-    if(req.params.id) filter = 'id_operadora =' + parseInt(req.params.id);
+router.get('/countUsers/:id_operadora?/:id_aplicacao?', (req,res) =>{
+    let filter_id_operadora = '';
+    let filter_id_aplicacao = '';
+    if(req.params.id_operadora) filter_id_operadora = 'id_operadora =' + parseInt(req.params.id_operadora);
+    if(req.params.id_aplicacao) filter_id_aplicacao = 'id_aplicacao =' + parseInt(req.params.id_aplicacao);
     execSQLQuery("select count(*) \
     FROM (SELECT distinct localizador \
-    FROM thweb_mob.tokens as tokens where "+ filter + " \
-    AND id_aplicacao = 4 \
+    FROM thweb_mob.tokens as tokens where "+ filter_id_operadora + " \
+    AND "+ filter_id_aplicacao + " \
     AND localizador is not null and localizador <> '' \
     and token is not null and token <> '' \
     and (optout_push = 0 OR optout_push is null) \
     group by localizador) as t", res);
 })
 
-router.get('/listUsers/:id?', (req,res) =>{
-    let filter = '';
-    if(req.params.id) filter = 'id_operadora =' + parseInt(req.params.id);
+router.get('/listUsers/:id_operadora?/:id_aplicacao?', (req,res) =>{
+    let filter_id_operadora = '';
+    let filter_id_aplicacao = '';
+    if(req.params.id_operadora) filter_id_operadora = 'id_operadora =' + parseInt(req.params.id_operadora);
+    if(req.params.id_aplicacao) filter_id_aplicacao = 'id_aplicacao =' + parseInt(req.params.id_aplicacao);
     execSQLQuery("select localizador, nome, email, telefone, sexo, estado, cidade, matricula, data_nascimento, plataforma, plataforma_versao \
     FROM (SELECT distinct localizador, nome, email, telefone, sexo, estado, cidade, matricula, data_nascimento, plataforma, plataforma_versao \
-    FROM thweb_mob.tokens as tokens where "+ filter + " \
-    AND id_aplicacao = 4 \
+    FROM thweb_mob.tokens as tokens where "+ filter_id_operadora + " \
+    AND "+ filter_id_aplicacao + " \
     AND localizador is not null and localizador <> '' \
     and token is not null and token <> '' \
     and (optout_push = 0 OR optout_push is null) \
@@ -73,5 +77,4 @@ router.get('/listUsers/:id?', (req,res) =>{
 
 app.listen(3000);
 console.log('API Funcionando!');
-
 
